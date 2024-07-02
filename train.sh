@@ -1,0 +1,1 @@
+python -m torch.distributed.launch --nproc_per_node=1 --master_port 9573 train.py --index AWA2_test22 --model ResNet --basic_model resnet50_relu --device 6 --dataset_name AWA2 --margin 0.01 --concept_cha 32 32 32 32 --concept_per_layer 8 16 32 64 --optimizer adam
