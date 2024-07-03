@@ -85,10 +85,3 @@ Final, classify the image via matching images' MCP distribution to the cloest cl
 ```bash
 python cal_acc_MCP.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --device 0 --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
 ```
-
-#### Trained checkpoint
-MCPNet with ResNet50 
-* on AWA2 dataset is available [here](https://drive.google.com/drive/folders/1HSaaQkzueYSkCCSkz6RO3abW0nTXxKTY?usp=drive_link)(270MB).
-* on Clatech101 dataset is available [here](https://drive.google.com/drive/folders/1HSaaQkzueYSkCCSkz6RO3abW0nTXxKTY?usp=drive_link)(270MB).
-* on CUB_200_2011 dataset is available [here](https://drive.google.com/drive/folders/1HSaaQkzueYSkCCSkz6RO3abW0nTXxKTY?usp=drive_link)(270MB).
-* To visulize the extracted prototypes, put the checkpoint in ``./pkl`` and follow the step described in ``Visualize concept``.
