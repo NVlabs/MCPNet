@@ -6,7 +6,6 @@
 <sup>*Equal Advising</sup>
 
 Official PyTorch implementation of CVPR 2024 paper "[MCPNet: An Interpretable Classifier via Multi-Level Concept Prototypes](https://arxiv.org/abs/2404.08968)".  
-<p style="font-size: 0.6em; margin-top: -1em">*Equal Contribution</p>
 <p align="center">
 <a href="https://arxiv.org/abs/2404.08968"><img src="https://img.shields.io/badge/arXiv-Paper-<color>"></a>
 <a href="https://eddie221.github.io/MCPNet/"><img src="https://img.shields.io/badge/Project-Website-red"></a>
@@ -33,13 +32,13 @@ Recent advancements in post-hoc and inherently interpretable methods have marked
 * easydict  
 * importlib  
 
-You can also simply build the evironment via ``.yml`` file.
+You can also simply build the environment via ``.yml`` file.
 ```
 conda env create -f ./environment.yml
 ```
 
 ### Dataset
-The code can be applied to any imaging classification data set, structured according to the [Imagefolder format](https://pytorch.org/vision/stable/generated/torchvision.datasets.ImageFolder.html#torchvision.datasets.ImageFolder): 
+The code can be applied to any imaging classification dataset, structured according to the [Imagefolder format](https://pytorch.org/vision/stable/generated/torchvision.datasets.ImageFolder.html#torchvision.datasets.ImageFolder): 
 
 >root/class1/xxx.png  <br /> root/class1/xxy.png  <br /> root/class2/xyy.png <br /> root/class2/yyy.png
 
@@ -56,7 +55,7 @@ To visualize the top-k response images of each concept, we first have to calcula
 ```bash
 python extract_prototypes.py --case_name AWA2_test --device 0 --model ResNet --basic_model resnet50_relu --concept_per_layer 8 16 32 64 --cha 32 32 32 32
 ```
-The above code will calculate the weighted convariance matrix and the weighted mean for each corncept pototypes.
+The above code will calculate each concept prototype's weighted covariance matrix and mean.
 
 Next, the following code will scan the whole training set to find the highest k point for each prototype from the training set. There might be multi-selected points from the same image. Select multiple candidates for each prototype to prevent the visualization from showing the same image. **The code will store the image index list indexed by ``ImageFolder``, so make sure the image set will be the same in this and next step; also, set the ``shuffle=False`` for these two steps.
 ```bash
@@ -76,12 +75,12 @@ To evaluate the performance of the trained MCPNet.
 python extract_prototypes.py --case_name AWA2_test --device 0 --model ResNet --basic_model resnet50_relu --concept_per_layer 8 16 32 64 --cha 32 32 32 32
 ```
 
-Next, calculated the class Multi-level Concept Prototypes distribution (MCP distribution).
+Next, the class Multi-level Concept Prototypes distribution (MCP distribution) was calculated.
 ```bash
 python cal_class_MCP.py --case_name AWA2_test --device 0 --model ResNet --basic_model resnet50_relu --concept_mode pca --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
 ```
 
-Final, classify the image via matching images' MCP distribution to the cloest class MCP distribution.
+Finally, classify the image by matching the images' MCP distribution to the closest class MCP distribution.
 ```bash
 python cal_acc_MCP.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --device 0 --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
 ```
