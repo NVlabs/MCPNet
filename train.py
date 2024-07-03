@@ -362,7 +362,7 @@ def runs(args):
                         # eigen decompose
                         concept_vectors[i], concept_means[i] = cal_concept(cov, cov_mean)
 
-                    # Calculate the centroid tree
+                    # Calculate the class MCP
                     class_MCP = cal_class_MCP(model, concept_vectors, concept_means, dataset["train"], args.category, args)
 
             if args.global_rank in [-1, 0]:  

@@ -19,21 +19,18 @@ def KL_div(x, y):
 def JS_div(x, y):
     return (KL_div(x, (x + y) / 2) + KL_div(y, (x + y) / 2)) / 2
 
-def cal_JS_sim(tree_edges_feat, mean_edges_feat):
-    return JS_div(tree_edges_feat + 1e-8, mean_edges_feat.unsqueeze(0) + 1e-8)
+def cal_JS_sim(img_MCP, class_MCP):
+    return JS_div(img_MCP + 1e-8, class_MCP.unsqueeze(0) + 1e-8)
 
-def cal_sim(tree_edges_feat, mean_edges_feat):
-    # tree_edges_feat = torch.stack([torch.flatten(tree_edges_feat, 1) + 1e-8, torch.flatten(1 - tree_edges_feat, 1) + 1e-8], dim = -1)
-    # mean_edges_feat = torch.stack([mean_edges_feat + 1e-8, (1 - mean_edges_feat) + 1e-8], dim = -1)
-    tree_edges_feat = torch.flatten(tree_edges_feat, 1)
-    mean_edges_feat = mean_edges_feat
-    tree_edges_feat = torch.clamp(tree_edges_feat, min = 1e-8, max = 1 - 1e-8)
-    mean_edges_feat = torch.clamp(mean_edges_feat, min = 1e-8, max = 1 - 1e-8)
-    feat_sim = cal_JS_sim(tree_edges_feat, mean_edges_feat)
+def cal_sim(img_MCP, class_MCP):
+    img_MCP = torch.flatten(img_MCP, 1)
+    img_MCP = torch.clamp(img_MCP, min = 1e-8, max = 1 - 1e-8)
+    class_MCP = torch.clamp(class_MCP, min = 1e-8, max = 1 - 1e-8)
+    feat_sim = cal_JS_sim(img_MCP, class_MCP)
     return feat_sim
 
 def cal_acc(model, concept_vecs, concept_means, data_transforms, data_path, args, cent_MCP):
-    print("Calculate class centroid tree")
+    print("Calculate class MCP distribution")
     deleted_nodes = [args.l1, args.l2, args.l3, args.l4]
 
     selected_nodes = []
@@ -123,7 +120,7 @@ if __name__ == "__main__":
     parser.add_argument('--l4', default = [], type = int, nargs = "+", help = "Select the node to drop")
     args = parser.parse_args()
 
-    print("Calculate tree accuracy !!")
+    print("Calculate accuracy !!")
     os.environ["CUDA_VISIBLE_DEVICES"] = args.device
 
     case_name = args.case_name

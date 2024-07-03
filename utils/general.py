@@ -162,12 +162,10 @@ def cal_JS_sim(x, y):
     return (KL_div(x, M) + KL_div(y, M)) / 2
 
 def cal_sim(img_MCP_dist, class_MCP_dist):
-    # tree_edges_feat = torch.stack([torch.flatten(tree_edges_feat, 1) + 1e-8, torch.flatten(1 - tree_edges_feat, 1) + 1e-8], dim = -1)
-    # mean_edges_feat = torch.stack([mean_edges_feat + 1e-8, (1 - mean_edges_feat) + 1e-8], dim = -1)
     feat_sim = cal_JS_sim(img_MCP_dist, class_MCP_dist)
     return feat_sim
 
-def cal_acc(feats, cent_tree_nodes, concept_vecs, concept_means, args):
+def cal_acc(feats, class_MCP, concept_vecs, concept_means, args):
     max_responses = []
     for layer_i, feat in enumerate(feats):
         B, C, H, W = feat.shape
@@ -185,7 +183,7 @@ def cal_acc(feats, cent_tree_nodes, concept_vecs, concept_means, args):
     max_responses = torch.cat(max_responses, dim = 1)
     max_responses = max_responses / torch.sum(max_responses, dim = 1, keepdim = True)
     for class_i in range(args.category):
-        resp_sim = cal_sim(max_responses, cent_tree_nodes[class_i].unsqueeze(0))
+        resp_sim = cal_sim(max_responses, class_MCP[class_i].unsqueeze(0))
         Diff_centroid_dist_resp.append(resp_sim)
 
     Diff_centroid_dist_resp = torch.stack(Diff_centroid_dist_resp, dim = 1)
