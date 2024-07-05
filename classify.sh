@@ -1,3 +1,3 @@
 python extract_prototypes.py --case_name AWA2_test --device 0 --model ResNet --basic_model resnet50_relu --concept_per_layer 8 16 32 64 --cha 32 32 32 32
-python cal_class_MCP.py --case_name AWA2_test --device 0 --model ResNet --basic_model resnet50_relu --concept_mode pca --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
-python cal_acc_MCP.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --device 0 --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
+python ./classify_utils/cal_class_MCP.py --case_name AWA2_test --device 0 --model ResNet --basic_model resnet50_relu --concept_mode pca --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
+python ./classify_utils/cal_acc_MCP.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --device 0 --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class

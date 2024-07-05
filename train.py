@@ -12,10 +12,7 @@ import matplotlib.pyplot as plt
 
 import arg_reader
 import logging
-from load_model import load_model
-from loss import CCD_loss, CKA_loss
-from utils import check_device
-from utils import info_log, cal_cov_component, cal_concept, cal_acc, cal_class_MCP, cal_cov
+from utils import info_log, cal_cov_component, cal_concept, cal_acc, cal_class_MCP, cal_cov, load_model, check_device, CCD_loss, CKA_loss
 
 class GatherLayer(torch.autograd.Function):
     """Gather tensors from all process, supporting backward propagation."""
@@ -494,13 +491,9 @@ if __name__ == '__main__':
             shutil.copy(src = os.path.join(os.getcwd(), "ResNet.py"), dst = args.dst)
         elif args.basic_model == "inceptionv3":
             shutil.copy(src = os.path.join(os.getcwd(), "inception_net.py"), dst = args.dst)
-        elif args.basic_model == "mobilenet":
-            shutil.copy(src = os.path.join(os.getcwd(), "mobilenet.py"), dst = args.dst)
         
         shutil.copy(src = os.path.join(os.getcwd(), "arg_reader.py"), dst = args.dst)
         shutil.copy(src = os.path.join(os.getcwd(), "loss.py"), dst = args.dst)
-        shutil.copy(src = os.path.join(os.getcwd(), "load_model.py"), dst = args.dst)
-        shutil.copy(src = os.path.join(os.getcwd(), f"{args.dataloader}.py"), dst = args.dst)
 
         start = time.time()
     

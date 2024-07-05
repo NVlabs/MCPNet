@@ -1,8 +1,7 @@
 import torchvision
 from torch.utils.data import DataLoader
-from data_transform import prepare_transforms
 import torchvision.transforms as transforms
-from utils import info_log, main_process_first
+from utils import info_log, main_process_first, prepare_transforms
 import torch
 import os
 
