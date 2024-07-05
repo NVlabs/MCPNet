@@ -1,4 +1,4 @@
-# MCPNet: An Interpretable Classifier via Multi-Level Concept Prototypes
+# MCPNet: An Interpretable Classifier via Multi-Level Concept Prototypes [CVPR 2024]
 [Bor-Shiun Wang](https://eddie221.github.io/),
 [Chien-Yi Wang](https://chienyiwang.github.io/)\*,
 [Wei-Chen Chiu](https://walonchiu.github.io/)\*
@@ -11,6 +11,8 @@ Official PyTorch implementation of CVPR 2024 paper "[MCPNet: An Interpretable Cl
 <a href="https://eddie221.github.io/MCPNet/"><img src="https://img.shields.io/badge/Project-Website-red"></a>
 </p>
 <!-- You can visit our project website [here](https://eddie221.github.io/MCPNet/). -->
+
+For business inquiries, please visit our website and submit the form: [NVIDIA Research Licensing](https://www.nvidia.com/en-us/research/inquiries/).
 
 ## Introduction
 Recent advancements in post-hoc and inherently interpretable methods have markedly enhanced the explanations of black box classifier models. These methods operate either through post-analysis or by integrating concept learning during model training. Although being effective in bridging the semantic gap between a model's latent space and human interpretation, these explanation methods only partially reveal the model's decision-making process. The outcome is typically limited to high-level semantics derived from the last feature map. We argue that the explanations lacking insights into the decision processes at low and mid-level features are neither fully faithful nor useful. Addressing this gap, we introduce the Multi-Level Concept Prototypes Classifier (MCPNet), an inherently interpretable model. MCPNet autonomously learns meaningful concept prototypes across multiple feature map levels using Centered Kernel Alignment (CKA) loss and an energy-based weighted PCA mechanism, and it does so without reliance on predefined concept labels. Further, we propose a novel classifier paradigm that learns and aligns multi-level concept prototype distributions for classification purposes via Class-aware Concept Distribution (CCD) loss. Our experiments reveal that our proposed MCPNet while being adaptable to various model architectures, offers comprehensive multi-level explanations while maintaining classification accuracy. Additionally, its concept distribution-based classification approach shows improved generalization capabilities in few-shot classification scenarios. 
