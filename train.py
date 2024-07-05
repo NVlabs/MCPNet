@@ -10,9 +10,7 @@ import time
 import shutil
 import matplotlib.pyplot as plt
 
-import arg_reader
-import logging
-from utils import info_log, cal_cov_component, cal_concept, cal_acc, cal_class_MCP, cal_cov, load_model, check_device, CCD_loss, CKA_loss
+from utils import read_args, info_log, cal_cov_component, cal_concept, cal_acc, cal_class_MCP, cal_cov, load_model, check_device, CCD_loss, CKA_loss
 
 class GatherLayer(torch.autograd.Function):
     """Gather tensors from all process, supporting backward propagation."""
@@ -447,7 +445,7 @@ class AverageMeter():
         self.avg = self.sum / self.count
         
 if __name__ == '__main__':
-    args = arg_reader.read_args()
+    args = read_args()
     # Set DDP variables
     args.world_size = int(os.environ['WORLD_SIZE']) if 'WORLD_SIZE' in os.environ else 1
     args.global_rank = int(os.environ['RANK']) if 'RANK' in os.environ else -1

@@ -8,12 +8,6 @@ logs/
 
 pkl/
 
-show_sim_cka_tmp/
-
 __pycache__/
-
-.show_sim_cka.py
-
-interpret_result/
 
 cal_class_MCP_tmp/
