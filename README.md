@@ -5,11 +5,14 @@
 
 <sup>*Equal Advising</sup>
 
-Official PyTorch implementation of CVPR 2024 paper "[MCPNet: An Interpretable Classifier via Multi-Level Concept Prototypes](https://arxiv.org/abs/2404.08968)".  
-<p align="center">
+Official PyTorch implementation of CVPR 2024 paper "[MCPNet: An Interpretable Classifier via Multi-Level Concept Prototypes](https://openaccess.thecvf.com/content/CVPR2024/papers/Wang_MCPNet_An_Interpretable_Classifier_via_Multi-Level_Concept_Prototypes_CVPR_2024_paper.pdf)".
+
+[[`Paper`](https://openaccess.thecvf.com/content/CVPR2024/papers/Wang_MCPNet_An_Interpretable_Classifier_via_Multi-Level_Concept_Prototypes_CVPR_2024_paper.pdf)] [[`Supplementary`](https://openaccess.thecvf.com/content/CVPR2024/supplemental/Wang_MCPNet_An_Interpretable_CVPR_2024_supplemental.pdf)] [[`Website`](https://eddie221.github.io/MCPNet/)] [[`arXiv`]((https://arxiv.org/abs/2404.08968))] [[`Youtube`](https://youtu.be/boWah2zgsmQ?si=kEI_qiOzYy9SO-2Q)] [[`BibTeX`](#citation)]
+
+<!-- <p align="center">
 <a href="https://arxiv.org/abs/2404.08968"><img src="https://img.shields.io/badge/arXiv-Paper-<color>"></a>
 <a href="https://eddie221.github.io/MCPNet/"><img src="https://img.shields.io/badge/Project-Website-red"></a>
-</p>
+</p> -->
 <!-- You can visit our project website [here](https://eddie221.github.io/MCPNet/). -->
 
 For business inquiries, please visit our website and submit the form: [NVIDIA Research Licensing](https://www.nvidia.com/en-us/research/inquiries/).
@@ -87,8 +90,12 @@ Finally, classify the image by matching the images' MCP distribution to the clos
 python ./classify_utils/cal_acc_MCP.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --device 0 --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
 ```
 
+## Contact
+Bor-Shiun Wang: [eddiewang.cs10@nycu.edu.tw](eddiewang.cs10@nycu.edu.tw) and Chien-Yi Wang [chienyiw@nvidia.com](chienyiw@nvidia.com)
+
+
 ## Citation
-```
+```bibtex
 @InProceedings{Wang2024MCPNet,
   author    = {Wang, Bor-Shiun and Wang, Chien-Yi and Chiu, Wei-Chen},
   title     = {MCPNet: An Interpretable Classifier via Multi-Level Concept Prototypes},
@@ -98,3 +105,8 @@ python ./classify_utils/cal_acc_MCP.py --case_name AWA2_test --model ResNet --ba
   pages     = {10885-10894}
 }
 ```
+
+## Licenses
+Copyright © 2024, NVIDIA Corporation. All rights reserved.
+
+This work is made available under the NVIDIA Source Code License-NC. Click [here](https://github.com/NVlabs/MCPNet/LICENSE) to view a copy of this license.
