@@ -86,3 +86,15 @@ Finally, classify the image by matching the images' MCP distribution to the clos
 ```bash
 python ./classify_utils/cal_acc_MCP.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --device 0 --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
 ```
+
+## Citation
+```
+@InProceedings{Wang2024MCPNet,
+  author    = {Wang, Bor-Shiun and Wang, Chien-Yi and Chiu, Wei-Chen},
+  title     = {MCPNet: An Interpretable Classifier via Multi-Level Concept Prototypes},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  month     = {June},
+  year      = {2024},
+  pages     = {10885-10894}
+}
+```
