@@ -10,7 +10,7 @@ from PIL import Image
 import tqdm
 import cv2
 import shutil
-
+sys.path.insert(1, f"{os.path.expanduser('~')}/MCPNet")
 from utils.general import load_concept, load_model, get_dataset, get_model_set, load_weight, get_con_num_cha_per_con_num
 import matplotlib.pyplot as plt
 
@@ -63,9 +63,9 @@ def save_heatmap(ori_imgs, masks, args):
     heatmaps = np.concatenate(heatmaps, axis = 1)
     if args.split:
         if args.reverse:
-            plt.imsave(fname = os.path.join(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'l{layer_i + 1}_{concept_i + 1}_heatmap_reverse.png'), arr = heatmaps, vmin = 0.0, vmax = 1.0)
+            plt.imsave(fname = os.path.join(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'l{layer_i + 1}_{concept_i + 1}_heatmap_reverse.png'), arr = heatmaps, vmin = 0.0, vmax = 1.0)
         else:
-            plt.imsave(fname = os.path.join(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'l{layer_i + 1}_{concept_i + 1}_heatmap.png'), arr = heatmaps, vmin = 0.0, vmax = 1.0)
+            plt.imsave(fname = os.path.join(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'l{layer_i + 1}_{concept_i + 1}_heatmap.png'), arr = heatmaps, vmin = 0.0, vmax = 1.0)
     return heatmaps
 
 # red mask on the masked part
@@ -83,9 +83,9 @@ def save_masked(ori_imgs, masks, args):
     masked_imgs = np.concatenate(masked_img, axis = 1)
     if args.split:
         if args.reverse:
-            plt.imsave(fname = os.path.join(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'l{layer_i + 1}_{concept_i + 1}_masked_reverse.png'), arr = masked_imgs, vmin = 0.0, vmax = 1.0)
+            plt.imsave(fname = os.path.join(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'l{layer_i + 1}_{concept_i + 1}_masked_reverse.png'), arr = masked_imgs, vmin = 0.0, vmax = 1.0)
         else:
-            plt.imsave(fname = os.path.join(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'l{layer_i + 1}_{concept_i + 1}_masked.png'), arr = masked_imgs, vmin = 0.0, vmax = 1.0)
+            plt.imsave(fname = os.path.join(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'l{layer_i + 1}_{concept_i + 1}_masked.png'), arr = masked_imgs, vmin = 0.0, vmax = 1.0)
     return masked_imgs        
 
 if __name__ == "__main__":
@@ -132,9 +132,9 @@ if __name__ == "__main__":
     all_mask_tensors = []
     all_ori_imgs = []
     with torch.no_grad():
-        os.makedirs(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", exist_ok = True)
-        os.makedirs(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/ori_img", exist_ok = True)
-        os.makedirs(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/masked", exist_ok = True)
+        os.makedirs(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", exist_ok = True)
+        os.makedirs(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/ori_img", exist_ok = True)
+        os.makedirs(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/masked", exist_ok = True)
 
         data_path, train_path, val_path, num_class = get_dataset(args.case_name)
         data_path = data_path + train_path
@@ -188,7 +188,7 @@ if __name__ == "__main__":
                     if args.individually:
                         ori_img = ori_img.permute(1, 2, 0)
                         ori_img = Image.fromarray((ori_img * 255).numpy().astype(np.uint8))
-                        ori_img.save(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/ori_img/l{layer_i + 1}_{concept_i + 1}_{len(ori_imgs)}.png")
+                        ori_img.save(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/ori_img/l{layer_i + 1}_{concept_i + 1}_{len(ori_imgs)}.png")
                     paths.append(path)
 
                 imgs = torch.stack(imgs, dim = 0)
@@ -213,7 +213,7 @@ if __name__ == "__main__":
                 masks = torch.clip(resps, min = -1, max = 1)
                 topk_prototype = masks * ori_imgs.cuda()
                 if args.split:
-                    torchvision.utils.save_image(topk_prototype, f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/l{layer_i + 1}_{concept_i + 1}.png", nrow = nrow)
+                    torchvision.utils.save_image(topk_prototype, f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/l{layer_i + 1}_{concept_i + 1}.png", nrow = nrow)
                     if args.heatmap:
                         save_heatmap(ori_imgs, masks, args)
                     if args.masked:
@@ -230,7 +230,7 @@ if __name__ == "__main__":
                         img[img < 0] = 0
                         img = (img * 255).cpu().numpy().astype(np.uint8)
                         img = Image.fromarray(img)
-                        img.save(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/masked/l{layer_i + 1}_{concept_i + 1}_{i + 1}_masked.png")
+                        img.save(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/masked/l{layer_i + 1}_{concept_i + 1}_{i + 1}_masked.png")
                             
 
             if not args.split:
@@ -240,14 +240,14 @@ if __name__ == "__main__":
                 all_mask_tensors.append(vis_masks.reshape(-1, args.topk, vis_masks.shape[1], vis_masks.shape[2], vis_masks.shape[3]))
                 vis_ori_imgs = torch.cat(topk_prototype_imgs, dim = 0)
                 all_ori_imgs.append(vis_ori_imgs.reshape(-1, args.topk, vis_ori_imgs.shape[1], vis_ori_imgs.shape[2], vis_ori_imgs.shape[3]))
-                torchvision.utils.save_image(vis_prototypes, f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/all_prototypes_{layer_i}.png", nrow = nrow)
+                torchvision.utils.save_image(vis_prototypes, f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/all_prototypes_{layer_i}.png", nrow = nrow)
                 if args.heatmap:
                     heatmap_imgs = []
                     for prototype_i in range(concept_num):
                         heatmap = save_heatmap(topk_prototype_imgs[prototype_i], vis_masks[prototype_i * args.topk:(prototype_i + 1) * args.topk], args)
                         heatmap_imgs.append(heatmap)
                     heatmap_imgs = np.concatenate(heatmap_imgs, axis = 0)
-                    plt.imsave(fname = os.path.join(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'all_prototypes_{layer_i}_heatmap.png'), arr = heatmap_imgs, vmin = 0.0, vmax = 1.0)
+                    plt.imsave(fname = os.path.join(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'all_prototypes_{layer_i}_heatmap.png'), arr = heatmap_imgs, vmin = 0.0, vmax = 1.0)
 
                 if args.masked:
                     masked_imgs = []
@@ -255,7 +255,7 @@ if __name__ == "__main__":
                         masked = save_masked(topk_prototype_imgs[prototype_i], vis_masks[prototype_i * args.topk:(prototype_i + 1) * args.topk], args)
                         masked_imgs.append(masked)
                     masked_imgs = np.concatenate(masked_imgs, axis = 0)
-                    plt.imsave(fname = os.path.join(f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'all_prototypes_{layer_i}_masked.png'), arr = masked_imgs, vmin = 0.0, vmax = 1.0)
+                    plt.imsave(fname = os.path.join(f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/", f'all_prototypes_{layer_i}_masked.png'), arr = masked_imgs, vmin = 0.0, vmax = 1.0)
                 topk_prototypes.clear()
                 topk_prototype_masks.clear()
                 topk_prototype_imgs.clear()
@@ -265,4 +265,4 @@ if __name__ == "__main__":
             all_prototype_tensors = torch.cat(all_prototype_tensors, dim = 0).cpu()
             all_mask_tensors = torch.cat(all_mask_tensors, dim = 0).cpu()
             all_ori_imgs = torch.cat(all_ori_imgs, dim = 0).cpu()
-            torch.save({"Masked_img" : all_prototype_tensors, "Mask" : all_mask_tensors, "ori_imgs" : all_ori_imgs}, f"./{__file__[:-3]}_tmp/{args.case_name}/{args.basic_model}/{args.topk}/all_prototypes.pkl")
+            torch.save({"Masked_img" : all_prototype_tensors, "Mask" : all_mask_tensors, "ori_imgs" : all_ori_imgs}, f"./find_topk_area_tmp/{args.case_name}/{args.basic_model}/{args.topk}/all_prototypes.pkl")

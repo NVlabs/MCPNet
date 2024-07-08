@@ -2,12 +2,11 @@ import torch
 import torchvision.transforms as transforms
 import sys
 import numpy as np
-import torchvision
 from torch.utils.data import DataLoader
 import tqdm
 import os
 import argparse
-import time
+sys.path.insert(1, f"{os.path.expanduser('~')}/MCPNet")
 from utils.general import load_model, load_concept, get_dataset, load_weight, get_con_num_cha_per_con_num
 from torchvision.datasets import ImageFolder
 from PIL import Image
@@ -52,7 +51,6 @@ if __name__ == "__main__":
     case_names = args.case_name
 
     m_is_concept_num = False
-    # dataset_path = "../datasets/stanford car/cars_train"
     
     if args.basic_model == "inceptionv3":
         image_size = 299
@@ -63,7 +61,6 @@ if __name__ == "__main__":
                                      transforms.CenterCrop((image_size, image_size)),
                                      transforms.ToTensor(),
                                      transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
-    
     TOP_RATE = 0.1
     for step, case_name in enumerate(case_names):
         data_path, train_path, val_path, num_class = get_dataset(case_name)
@@ -102,7 +99,7 @@ if __name__ == "__main__":
                           torch.tensor([], dtype = torch.int64).cuda(),
                           torch.tensor([], dtype = torch.int64).cuda()]
 
-        os.makedirs(f"./{__file__[:-3]}_tmp/{case_name}/{args.basic_model}", exist_ok = True)
+        os.makedirs(f"./find_topk_response_tmp/{case_name}/{args.basic_model}", exist_ok = True)
         N = [0, 0, 0, 0]
         with torch.no_grad():
             model.eval()
@@ -138,7 +135,6 @@ if __name__ == "__main__":
                     max_resp_feat[layer_i] = torch.gather(max_resp_feat[layer_i], dim = -1, index = topki.unsqueeze(1).repeat(1, args.cha[layer_i], 1))
                     max_resp_path[layer_i] = np.take(max_resp_path[layer_i], np.array(topki.cpu()) // (D_per_img))
                     N[layer_i] += feat.shape[2]
-        torch.save(max_resp_value, f"./{__file__[:-3]}_tmp/{case_name}/{args.basic_model}/max_resp_value.pkl")
-        torch.save(max_resp_index, f"./{__file__[:-3]}_tmp/{case_name}/{args.basic_model}/max_resp_value_idx.pkl")
-        torch.save(max_resp_feat, f"./{__file__[:-3]}_tmp/{case_name}/{args.basic_model}/max_resp_value_feat.pkl")
-        # np.save(f"./{__file__[:-3]}_tmp/{case_name}/{args.basic_model}/max_resp_path.npy", max_resp_path)
+        torch.save(max_resp_value, f"./find_topk_response_tmp/{case_name}/{args.basic_model}/max_resp_value.pkl")
+        torch.save(max_resp_index, f"./find_topk_response_tmp/{case_name}/{args.basic_model}/max_resp_value_idx.pkl")
+        torch.save(max_resp_feat, f"./find_topk_response_tmp/{case_name}/{args.basic_model}/max_resp_value_feat.pkl")

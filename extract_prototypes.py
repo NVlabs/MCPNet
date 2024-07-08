@@ -15,7 +15,7 @@ import argparse
 # Calculate the weighted bias based on the weighted sample covariance formulation.
 # https://en.wikipedia.org/wiki/Weighted_arithmetic_mean#Weighted_sample_covariance
 
-def cal_concept_vec_weighted(feat, Sum_A, Square_Sum_A, cov_xx, cov_mean, layer_i, args):
+def cal_cov_component_weighted(feat, Sum_A, Square_Sum_A, cov_xx, cov_mean, layer_i, args):
     feat = torch.flatten(feat, 2)
     strength = torch.norm(feat, p = 2, dim = 1, keepdim = True)
     ori_feat = feat
@@ -26,7 +26,7 @@ def cal_concept_vec_weighted(feat, Sum_A, Square_Sum_A, cov_xx, cov_mean, layer_
     cov_mean[layer_i] += torch.sum(feat, dim = -1, keepdim = True)
     return Sum_A, Square_Sum_A, cov_xx, cov_mean
 
-def cal_concept_vec(feat, cov_xx, cov_mean, N, layer_i):
+def cal_cov_component(feat, cov_xx, cov_mean, N, layer_i):
     feat = torch.flatten(feat, 2)
 
     N[layer_i] += feat.shape[-1]
@@ -86,9 +86,9 @@ def cal_cov_matrix(model, train_loader, args, post_name = "", saved = True):
                 feat = feat.reshape(B, concept_num, cha_per_con, H, W).permute(1, 2, 0, 3, 4)
                     
                 if args.weighted:
-                    Sum_A, Square_Sum_A, cov_xx, cov_mean = cal_concept_vec_weighted(feat, Sum_A, Square_Sum_A, cov_xx, cov_mean, layer_i, args)
+                    Sum_A, Square_Sum_A, cov_xx, cov_mean = cal_cov_component_weighted(feat, Sum_A, Square_Sum_A, cov_xx, cov_mean, layer_i, args)
                 else:
-                    cov_xx, cov_mean, N = cal_concept_vec(feat, cov_xx, cov_mean, N, layer_i)
+                    cov_xx, cov_mean, N = cal_cov_component(feat, cov_xx, cov_mean, N, layer_i)
                 
         cov, cov_mean = cal_cov(cov_xx, cov_mean, Sum_A, Square_Sum_A, N)   
         if saved:

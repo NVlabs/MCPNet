@@ -4,14 +4,12 @@ from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 import sys
 import torchvision
-import numpy as np
 import tqdm
 import os
 import time
 import argparse
-import glob
+sys.path.insert(1, f"{os.path.expanduser('~')}/MCPNet")
 from utils.general import get_model_set, get_dataset, load_weight, load_model, load_concept
-import importlib
 
 def KL_div(x, y):
     return torch.mean(x * (torch.log2(x) - torch.log2(y)), dim = 1)

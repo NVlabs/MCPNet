@@ -490,8 +490,8 @@ if __name__ == '__main__':
         elif args.basic_model == "inceptionv3":
             shutil.copy(src = os.path.join(os.getcwd(), "inception_net.py"), dst = args.dst)
         
-        shutil.copy(src = os.path.join(os.getcwd(), "arg_reader.py"), dst = args.dst)
-        shutil.copy(src = os.path.join(os.getcwd(), "loss.py"), dst = args.dst)
+        shutil.copy(src = os.path.join(os.getcwd(), "utils/arg_reader.py"), dst = args.dst)
+        shutil.copy(src = os.path.join(os.getcwd(), "utils/loss.py"), dst = args.dst)
 
         start = time.time()
     
