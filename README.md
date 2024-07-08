@@ -7,7 +7,7 @@
 
 Official PyTorch implementation of CVPR 2024 paper "[MCPNet: An Interpretable Classifier via Multi-Level Concept Prototypes](https://openaccess.thecvf.com/content/CVPR2024/papers/Wang_MCPNet_An_Interpretable_Classifier_via_Multi-Level_Concept_Prototypes_CVPR_2024_paper.pdf)".
 
-[[`Paper`](https://openaccess.thecvf.com/content/CVPR2024/papers/Wang_MCPNet_An_Interpretable_Classifier_via_Multi-Level_Concept_Prototypes_CVPR_2024_paper.pdf)] [[`Supplementary`](https://openaccess.thecvf.com/content/CVPR2024/supplemental/Wang_MCPNet_An_Interpretable_CVPR_2024_supplemental.pdf)] [[`Website`](https://eddie221.github.io/MCPNet/)] [[`arXiv`]((https://arxiv.org/abs/2404.08968))] [[`Youtube`](https://youtu.be/boWah2zgsmQ?si=kEI_qiOzYy9SO-2Q)] [[`BibTeX`](#citation)]
+[[`Paper`](https://openaccess.thecvf.com/content/CVPR2024/papers/Wang_MCPNet_An_Interpretable_Classifier_via_Multi-Level_Concept_Prototypes_CVPR_2024_paper.pdf)] [[`Supplementary`](https://openaccess.thecvf.com/content/CVPR2024/supplemental/Wang_MCPNet_An_Interpretable_CVPR_2024_supplemental.pdf)] [[`Website`](https://eddie221.github.io/MCPNet/)] [[`arXiv`](https://arxiv.org/abs/2404.08968)] [[`Youtube`](https://youtu.be/boWah2zgsmQ?si=kEI_qiOzYy9SO-2Q)] [[`BibTeX`](#citation)]
 
 <!-- <p align="center">
 <a href="https://arxiv.org/abs/2404.08968"><img src="https://img.shields.io/badge/arXiv-Paper-<color>"></a>
