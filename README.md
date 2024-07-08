@@ -61,12 +61,12 @@ The above code will calculate each concept prototype's weighted covariance matri
 
 Next, the following code will scan the whole training set to find the highest k point for each prototype from the training set. There might be multi-selected points from the same image. Select multiple candidates for each prototype to prevent the visualization from showing the same image. **The code will store the image index list indexed by ``ImageFolder``, so make sure the image set will be the same in this and next step; also, set the ``shuffle=False`` for these two steps.
 ```bash
-python find_topk_response.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --device 0 --eigen_topk 1
+python ./vis_utils/find_topk_response.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --device 0 --eigen_topk 1
 ```
 
 The final step stores the top-k concept prototype result. Each image will only be selected once to present for each prototype. Precisely, the image of the top responses won't be duplicated for each prototype. 
 ```bash
-python find_topk_area.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --topk 5 --device 0 --eigen_topk 1 --masked --heatmap --individually
+python ./vis_utils/find_topk_area.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --topk 5 --device 0 --eigen_topk 1 --masked --heatmap --individually
 ```
 
 ### Evaluate performance
@@ -79,10 +79,10 @@ python extract_prototypes.py --case_name AWA2_test --device 0 --model ResNet --b
 
 Next, the class Multi-level Concept Prototypes distribution (MCP distribution) was calculated.
 ```bash
-python cal_class_MCP.py --case_name AWA2_test --device 0 --model ResNet --basic_model resnet50_relu --concept_mode pca --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
+python ./classify_utils/cal_class_MCP.py --case_name AWA2_test --device 0 --model ResNet --basic_model resnet50_relu --concept_mode pca --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
 ```
 
 Finally, classify the image by matching the images' MCP distribution to the closest class MCP distribution.
 ```bash
-python cal_acc_MCP.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --device 0 --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
+python ./classify_utils/cal_acc_MCP.py --case_name AWA2_test --model ResNet --basic_model resnet50_relu --device 0 --concept_per_layer 8 16 32 64 --cha 32 32 32 32 --all_class
 ```
