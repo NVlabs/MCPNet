@@ -91,7 +91,8 @@ python ./classify_utils/cal_acc_MCP.py --case_name AWA2_test --model ResNet --ba
 ```
 
 ## Contact
-Bor-Shiun Wang: [eddiewang.cs10@nycu.edu.tw](eddiewang.cs10@nycu.edu.tw) and Chien-Yi Wang [chienyiw@nvidia.com](chienyiw@nvidia.com)
+Bor-Shiun Wang: [eddiewang.cs10@nycu.edu.tw](eddiewang.cs10@nycu.edu.tw)
+Chien-Yi Wang: [chienyiw@nvidia.com](chienyiw@nvidia.com)
 
 
 ## Citation
